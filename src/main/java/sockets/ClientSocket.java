@@ -1,6 +1,7 @@
 package sockets;
 
 import res.VideoInfo;
+import services.FileServer;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -54,5 +55,36 @@ public class ClientSocket {
         }
 
         return videos;
+    }
+
+    public String sendSelection(String title, int resolution, String protocol, String destDir) {
+        // Send video title, resolution and protocol to server
+        try {
+            output.writeObject(title + "#" + resolution + "#" + protocol);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // TCP and UDP will have as response only the streaming port.
+        // RTP will also send the .sdp file.
+        String response = "";
+        if (!protocol.equals("RTP")) {
+            try {
+                response = (String) input.readObject();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            try {
+                response = new FileServer(destDir, input, socket.getInputStream()).receiveFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return response;
     }
 }
