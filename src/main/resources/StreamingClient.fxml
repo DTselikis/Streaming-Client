@@ -126,7 +126,7 @@
                               <ComboBox fx:id="protocolCB" prefHeight="45.0" prefWidth="130.0" promptText="protocol" styleClass="comboBox" stylesheets="@style.css" />
                            </children>
                         </HBox>
-                                <Button fx:id="startStreamBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="270.0" styleClass="add-btn" stylesheets="@style.css" text="START STREAMING" textFill="#828282">
+                                <Button fx:id="startStreamBtn" mnemonicParsing="false" onAction="#startStreamBtn_onClick" prefHeight="50.0" prefWidth="270.0" styleClass="add-btn" stylesheets="@style.css" text="START STREAMING" textFill="#828282">
                                     <VBox.margin>
                                         <Insets bottom="20.0" top="30.0" />
                                     </VBox.margin>
@@ -179,7 +179,7 @@
                                                     </font>
                                                 </Label>
                                     <TextField fx:id="destFolderTF" promptText=".sdp files folder" />
-                                    <Button fx:id="destFolderBtn" mnemonicParsing="false" text="Browse" />
+                                    <Button fx:id="destFolderBtn" mnemonicParsing="false" onAction="#destFolderBtn_onClick" text="Browse" />
                                             </children>
                                         </VBox>
                                     </children>
@@ -195,7 +195,7 @@
                                                     </font>
                                                 </Label>
                                     <TextField fx:id="ffplayTF" promptText="ffplay executable path" />
-                                    <Button fx:id="ffplayBtn" mnemonicParsing="false" text="Browse" />
+                                    <Button fx:id="ffplayBtn" mnemonicParsing="false" onAction="#setFFplayBtn_onClick" text="Browse" />
                                             </children>
                                         </VBox>
                                     </children>
