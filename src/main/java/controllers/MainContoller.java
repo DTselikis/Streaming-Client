@@ -1,5 +1,7 @@
 package controllers;
 
+import fr.bmartel.speedtest.SpeedTestSocket;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,9 +13,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import listeners.SpeedTestListener;
 import listeners.VideoItemClickListener;
 import res.VideoInfo;
 import res.VideoItem;
+import services.SpeedTestCallback;
 import services.StreamReceiver;
 import sockets.ClientSocket;
 
@@ -53,6 +57,8 @@ public class MainContoller implements Initializable {
     private Label videoTitleLbl;
     @FXML
     private Label videoResLbl;
+    @FXML
+    private Button startBtn;
 
     private void setChoiceBoxValues() {
         formatCB.getItems().add("avi");
@@ -220,9 +226,28 @@ public class MainContoller implements Initializable {
         return 0;
     }
 
+    public void updateSpeed(String speed) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                bitrateLbl.setText(speed.substring(0,5));
+                startBtn.setDisable(false);
+            }
+        });
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setChoiceBoxValues();
-        bitrateLbl.setText("1800");
+        startBtn.setDisable(true);
+
+        String speedTestURI = "http://ipv4.ikoula.testdebit.info/100M.iso";
+        long duration = 5000;
+
+        SpeedTestSocket speedTest = new SpeedTestSocket();
+        speedTest.addSpeedTestListener(new SpeedTestListener(new SpeedTestCallback(this)));
+        speedTest.setDownloadSetupTime(5000);
+        speedTest.startDownload("http://ipv4.ikoula.testdebit.info/100M.iso");
+
     }
 }
