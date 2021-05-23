@@ -134,11 +134,19 @@
                             <children>
                                 <Label prefHeight="29.0" prefWidth="88.0" text="Format" textFill="#878787">
                                     <font>
-                                        <Font name="Cambria Bold" size="18.0" />
+                                        <Font name="Cambria Bold" size="19.0" />
                                     </font>
                                 </Label>
                         <ChoiceBox fx:id="formatCB" prefWidth="60.0" />
                                 <Pane prefHeight="65.0" prefWidth="393.0" HBox.hgrow="ALWAYS" />
+                        <Label layoutX="750.0" layoutY="12.0" prefHeight="62.0" text="Download speed" textFill="#878787">
+                           <font>
+                              <Font name="Cambria Bold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="7.0" />
+                           </HBox.margin>
+                        </Label>
                                 <Label fx:id="bitrateLbl" prefHeight="62.0" prefWidth="100.0" text="Calculating" textFill="#878787">
                                     <font>
                                         <Font name="Cambria" size="18.0" />
@@ -162,7 +170,10 @@
                                     <Button fx:id="destFolderBtn" mnemonicParsing="false" onAction="#destFolderBtn_onClick" text="Browse">
                                        <VBox.margin>
                                           <Insets top="10.0" />
-                                       </VBox.margin></Button>
+                                       </VBox.margin>
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font></Button>
                                             </children>
                                         </VBox>
                                     </children>
@@ -181,7 +192,10 @@
                                     <Button fx:id="ffplayBtn" mnemonicParsing="false" onAction="#setFFplayBtn_onClick" text="Browse">
                                        <VBox.margin>
                                           <Insets top="10.0" />
-                                       </VBox.margin></Button>
+                                       </VBox.margin>
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font></Button>
                                             </children>
                                         </VBox>
                                     </children>
@@ -208,6 +222,9 @@
                                  <VBox.margin>
                                     <Insets top="14.0" />
                                  </VBox.margin>
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
                               </Button>
                            </children>
                            <opaqueInsets>
