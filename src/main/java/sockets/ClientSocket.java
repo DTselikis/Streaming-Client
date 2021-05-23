@@ -19,7 +19,7 @@ public class ClientSocket {
     private final String LOCALHOST = "127.0.0.1";
     private final int PORT = 5000;
 
-    public ClientSocket(int bitrate, String format) {
+    public ClientSocket() {
         try {
             socket = new Socket(LOCALHOST, PORT);
             output = new ObjectOutputStream(socket.getOutputStream());
