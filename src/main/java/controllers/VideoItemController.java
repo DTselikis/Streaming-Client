@@ -32,6 +32,6 @@ public class VideoItemController {
     private void setGUIInfo() {
         formatLbl.setText(this.video.getFormat());
         titleLbl.setText(this.video.getTitle());
-        resLbl.setText(this.video.getResolution());
+        resLbl.setText(String.valueOf(this.video.getResolution()));
     }
 }
