@@ -19,7 +19,7 @@ public class ClientSocket {
     private final String LOCALHOST = "127.0.0.1";
     private final int PORT = 5000;
 
-    public ClientSocket() {
+    public ClientSocket() throws Exception {
         try {
             socket = new Socket(LOCALHOST, PORT);
             output = new ObjectOutputStream(socket.getOutputStream());
@@ -27,6 +27,7 @@ public class ClientSocket {
         }
         catch (IOException e) {
             e.printStackTrace();
+            throw new Exception();
         }
     }
 

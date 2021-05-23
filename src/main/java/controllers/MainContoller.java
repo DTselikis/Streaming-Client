@@ -100,10 +100,21 @@ public class MainContoller implements Initializable {
         int bitrate = Integer.parseInt(bitrateLbl.getText());
         String format = (String) formatCB.getValue();
 
-        client = new ClientSocket();
-        videos = client.sendBitAndFormat(bitrate, format);
+        try {
+            client = new ClientSocket();
+            videos = client.sendBitAndFormat(bitrate, format);
 
-        setGrid();
+            setGrid();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Server could not be found");
+            alert.setHeaderText(null);
+            alert.setContentText("Server could not be found, please try again!");
+            alert.showAndWait();
+        }
+
     }
 
     private void setChoosenVideo(VideoItem video) {
