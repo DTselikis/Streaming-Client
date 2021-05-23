@@ -148,10 +148,11 @@ public class MainContoller implements Initializable {
 
         videoResCB.getSelectionModel().select(pos);
 
+        protocolCB.getItems().add("Recomended");
         protocolCB.getItems().add("TCP");
         protocolCB.getItems().add("UDP");
         protocolCB.getItems().add("RTP");
-        protocolCB.getSelectionModel().select(1);
+        protocolCB.getSelectionModel().select(0);
 
         chosenVideoCard.setVisible(true);
 
@@ -218,6 +219,16 @@ public class MainContoller implements Initializable {
         int res = (int) videoResCB.getValue();
         String protocol = (String) protocolCB.getValue();
         String destDir = destFolderTF.getText();
+
+        if (protocol.equals("Recomended")) {
+            switch (res) {
+                case 240: protocol = "TCP"; break;
+                case 360:
+                case 480: protocol = "UDP"; break;
+                case 720:
+                case 1080: protocol = "RTP";
+            }
+        }
 
         if (checkPaths(protocol) == 0) {
             String response;
