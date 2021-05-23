@@ -98,19 +98,27 @@ public class MainContoller implements Initializable {
     }
 
     private void setChoosenVideo(VideoItem video) {
+        // Empty items in case user click in more than
+        // one videos
+        videoResCB.getItems().clear();
+        videoFormatCB.getItems().clear();
+        protocolCB.getItems().clear();
+
         videoTitleLbl.setText(video.getTitle());
         videoResLbl.setText(String.valueOf(video.getResolution()));
         videoFormatCB.getItems().add(video.getFormat());
+        videoFormatCB.getSelectionModel().select(0);
 
         int pos = 0;
+        int i = 0;
         for (Integer resolution : videos.get(video.getIndex()).getResolutions()) {
             videoResCB.getItems().add(resolution);
 
             if (resolution == video.getResolution()) {
-                continue;
+                pos = i;
             }
 
-            pos++;
+            i++;
         }
 
         videoResCB.getSelectionModel().select(pos);
@@ -182,7 +190,7 @@ public class MainContoller implements Initializable {
             String response;
             response = client.sendSelection(title, res, protocol, destDir);
 
-            new StreamReceiver(protocol, response, ffplayTF.getText());
+            new StreamReceiver(protocol, response, ffplayTF.getText()).startStream();
         }
     }
 
