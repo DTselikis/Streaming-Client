@@ -22,10 +22,15 @@ public class MainContoller implements Initializable {
     private TextField ffplayTF;
     @FXML
     private Button ffplayBtn;
+    @FXML
+    private ChoiceBox<String> formatCB;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    private void setChoiceBoxValues() {
+        formatCB.getItems().add("avi");
+        formatCB.getItems().add("mp4");
+        formatCB.getItems().add("mkv");
 
+        formatCB.getSelectionModel().select(0);
     }
 
     public void destFolderBtn_onClick(ActionEvent e) {
@@ -51,5 +56,10 @@ public class MainContoller implements Initializable {
         if (file != null) {
             ffplayTF.setText(file.getAbsolutePath());
         }
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        setChoiceBoxValues();
+        bitrateLbl.setText("1800");
     }
 }
