@@ -16,6 +16,8 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import listeners.SpeedTestListener;
 import listeners.VideoItemClickListener;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import res.VideoInfo;
 import res.VideoItem;
 import services.SpeedTestCallback;
@@ -63,6 +65,8 @@ public class MainContoller implements Initializable {
     @FXML
     private VBox chosenVideoCard;
 
+    private static final Logger LOGGER = LogManager.getLogger(MainContoller.class);
+
     private void setChoiceBoxValues() {
         formatCB.getItems().add("avi");
         formatCB.getItems().add("mp4");
@@ -106,6 +110,7 @@ public class MainContoller implements Initializable {
 
             setGrid();
         } catch (Exception exception) {
+            LOGGER.error(exception.getMessage());
             exception.printStackTrace();
 
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -150,6 +155,7 @@ public class MainContoller implements Initializable {
 
         chosenVideoCard.setVisible(true);
 
+        LOGGER.info("New video setted!");
     }
 
     private void setGrid() {
@@ -193,11 +199,16 @@ public class MainContoller implements Initializable {
                     videoItemGrid.setMaxHeight(Region.USE_PREF_SIZE);
 
                     GridPane.setMargin(anchorPane, new Insets(10));
+
+                    LOGGER.info("Added new video item: " + video.getTitle() + " " + format + " " + resolution);
                 }
+
+                LOGGER.info("Grid created!");
 
                 i++;
             }
         } catch (IOException e) {
+            LOGGER.error(e.getMessage());
             e.printStackTrace();
         }
     }
@@ -224,6 +235,8 @@ public class MainContoller implements Initializable {
             alert.setContentText("Please provide ffplay directory!");
             alert.showAndWait();
 
+            LOGGER.warn("ffplay directory not provided!");
+
             return 1;
         }
 
@@ -235,9 +248,13 @@ public class MainContoller implements Initializable {
                 alert.setContentText("Please provide .rdp destination directory!");
                 alert.showAndWait();
 
+                LOGGER.warn(".rdp directory not provided!");
+
                 return 1;
             }
         }
+
+        LOGGER.info("Paths ok!");
 
         return 0;
     }
@@ -248,6 +265,8 @@ public class MainContoller implements Initializable {
             public void run() {
                 bitrateLbl.setText(speed.substring(0,5));
                 startBtn.setDisable(false);
+
+                LOGGER.info("Speedtest ended. Speed: " + speed.substring(0,5));
             }
         });
     }
@@ -264,6 +283,8 @@ public class MainContoller implements Initializable {
         speedTest.addSpeedTestListener(new SpeedTestListener(new SpeedTestCallback(this)));
         speedTest.setDownloadSetupTime(5000);
         speedTest.startDownload("http://ipv4.ikoula.testdebit.info/100M.iso");
+
+        LOGGER.info("Speedtest started!");
 
     }
 }

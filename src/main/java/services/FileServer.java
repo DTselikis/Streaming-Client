@@ -1,5 +1,9 @@
 package services;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import sockets.ClientSocket;
+
 import java.io.*;
 import java.nio.file.Paths;
 
@@ -7,6 +11,8 @@ public class FileServer {
     private final String destDir;
     private final ObjectInputStream input;
     private final InputStream socketInput;
+
+    private static final Logger LOGGER = LogManager.getLogger(FileServer.class);
 
     public FileServer(String destDir, ObjectInputStream input, InputStream socketInput) {
         this.destDir = destDir;
@@ -19,9 +25,12 @@ public class FileServer {
         String[] fileInfo = null;
         try {
             fileInfo = (String[]) input.readObject().toString().split("#");
+            LOGGER.info("rtp info: " + fileInfo.toString());
         } catch (IOException e) {
+            LOGGER.error(e.getMessage());
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
+            LOGGER.error(e.getMessage());
             e.printStackTrace();
         }
 
@@ -34,6 +43,7 @@ public class FileServer {
         try {
             fos = new FileOutputStream(Paths.get(destDir, fileName).toString());
         } catch (FileNotFoundException e) {
+            LOGGER.error(e.getMessage());
             e.printStackTrace();
         }
 
@@ -58,8 +68,11 @@ public class FileServer {
             data.close();
         }
         catch (IOException ex) {
+            LOGGER.error(ex.getMessage());
             ex.printStackTrace();
         }
+
+        LOGGER.info("rdp file created successfully!");
 
         return fileName;
     }

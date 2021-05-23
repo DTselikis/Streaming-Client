@@ -1,5 +1,8 @@
 package sockets;
 
+import controllers.MainContoller;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import res.VideoInfo;
 import services.FileServer;
 
@@ -19,6 +22,8 @@ public class ClientSocket {
     private final String LOCALHOST = "127.0.0.1";
     private final int PORT = 5000;
 
+    private static final Logger LOGGER = LogManager.getLogger(ClientSocket.class);
+
     public ClientSocket() throws Exception {
         try {
             socket = new Socket(LOCALHOST, PORT);
@@ -35,7 +40,9 @@ public class ClientSocket {
         // Send bitrate and desired format to server
         try {
             output.writeObject(bitrate + "#" + format);
+            LOGGER.info("Bitrate and format sent! " + bitrate + " " + format);
         } catch (IOException e) {
+            LOGGER.error(e.getMessage());
             e.printStackTrace();
         }
 
@@ -43,9 +50,12 @@ public class ClientSocket {
         HashMap<String, ArrayList<Integer>> supportedFiles = null;
         try {
             supportedFiles = (HashMap<String, ArrayList<Integer>>) input.readObject();
+            LOGGER.info("Received file: " + supportedFiles.keySet());
         } catch (IOException e) {
+            LOGGER.error(e.getMessage());
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
+            LOGGER.error(e.getMessage());
             e.printStackTrace();
         }
 
@@ -62,7 +72,9 @@ public class ClientSocket {
         // Send video title, resolution and protocol to server
         try {
             output.writeObject(title + "#" + resolution + "#" + protocol);
+            LOGGER.error("Sent selection: " + title + " " + resolution + " " + protocol);
         } catch (IOException e) {
+            LOGGER.error(e.getMessage());
             e.printStackTrace();
         }
 
@@ -72,16 +84,21 @@ public class ClientSocket {
         if (!protocol.equals("RTP")) {
             try {
                 response = (String) input.readObject();
+                LOGGER.info("Response received: " + response);
             } catch (IOException e) {
+                LOGGER.error(e.getMessage());
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
+                LOGGER.error(e.getMessage());
                 e.printStackTrace();
             }
         }
         else {
             try {
                 response = new FileServer(destDir, input, socket.getInputStream()).receiveFile();
+                LOGGER.info("RTP response: " + response);
             } catch (IOException e) {
+                LOGGER.error(e.getMessage());
                 e.printStackTrace();
             }
         }
