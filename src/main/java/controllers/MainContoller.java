@@ -201,7 +201,7 @@ public class MainContoller implements Initializable {
             String response;
             response = client.sendSelection(title, res, protocol, destDir);
 
-            new StreamReceiver(protocol, response, ffplayTF.getText()).startStream();
+            new StreamReceiver(protocol, response, ffplayTF.getText(), destDir).startStream();
         }
     }
 

@@ -1,17 +1,21 @@
 package services;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class StreamReceiver {
     private final String protocol;
     private final String parameter;
     private final String ffPlayDir;
+    private final String workingDirectory;
 
-    public StreamReceiver(String protocol, String parameter, String ffPlayDir) {
+    public StreamReceiver(String protocol, String parameter, String ffPlayDir, String workingDirectory) {
         this.protocol = protocol;
         this.parameter = parameter;
         this.ffPlayDir = ffPlayDir;
+        this.workingDirectory = workingDirectory;
     }
 
     public void startStream() {
@@ -31,7 +35,7 @@ public class StreamReceiver {
                 args.add("-protocol_whitelist");
                 args.add("file,rtp,udp");
                 args.add("-i");
-                args.add(parameter);
+                args.add(Paths.get(workingDirectory, parameter).toString());
             }
         }
 
