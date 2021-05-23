@@ -93,6 +93,8 @@ public class MainContoller implements Initializable {
 
         client = new ClientSocket();
         videos = client.sendBitAndFormat(bitrate, format);
+
+        setGrid();
     }
 
     private void setChoosenVideo(VideoItem video) {
@@ -136,8 +138,7 @@ public class MainContoller implements Initializable {
             String format = (String) formatCB.getValue();
             for (VideoInfo video : videos) {
                 for (Integer resolution : video.getResolutions()) {
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(getClass().getResource("/resources/VideoItem.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/VideoItem.fxml"));
 
                     AnchorPane anchorPane = fxmlLoader.load();
 

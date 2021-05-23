@@ -25,7 +25,7 @@ public class VideoItemController {
     }
 
     @FXML
-    private void click() {
+    private void onClick() {
         listener.onClickListener(this.video);
     }
 
