@@ -49,3 +49,8 @@
     -fx-background-color: #FFFFFF;
     -fx-background-radius: 30;
 }
+
+.button {
+    -fx-cursor: hand;
+    -fx-background-radius: 30;
+}
