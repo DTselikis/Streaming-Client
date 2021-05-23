@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import listeners.SpeedTestListener;
@@ -59,6 +60,8 @@ public class MainContoller implements Initializable {
     private Label videoResLbl;
     @FXML
     private Button startBtn;
+    @FXML
+    private VBox chosenVideoCard;
 
     private void setChoiceBoxValues() {
         formatCB.getItems().add("avi");
@@ -133,6 +136,8 @@ public class MainContoller implements Initializable {
         protocolCB.getItems().add("UDP");
         protocolCB.getItems().add("RTP");
         protocolCB.getSelectionModel().select(1);
+
+        chosenVideoCard.setVisible(true);
 
     }
 
