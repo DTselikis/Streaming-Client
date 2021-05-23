@@ -49,7 +49,7 @@ public class ClientSocket {
         }
 
         // Make a list of all supported videos
-        ArrayList<VideoInfo> videos = null;
+        ArrayList<VideoInfo> videos = new ArrayList<VideoInfo>();
         for (Map.Entry<String, ArrayList<Integer>> entry : supportedFiles.entrySet()) {
             videos.add(new VideoInfo(entry.getKey(), entry.getValue()));
         }
