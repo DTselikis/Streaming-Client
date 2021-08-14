@@ -5,7 +5,7 @@ A streaming client powered by JAVA 11 and JavaFX.
 </div>
 
 ## Usage
-At launch, the app will permorm a speedtest using the JSpeedTest library to calculate the client's bandwidth. By pressing the "Start" button the client will try to connect to the server at **127.0.0.1:5000**. After a successfull connection the client will retrieve from the client the files that corespond to the given format. The user then selects the preferable file which will couse a card at the left of the screen to be opened. By pressing "START STREAMING" the client will start streaming the specified file with the specified resolution protocol.
+At launch, the app will perform a speedtest using the JSpeedTest library to calculate the client's bandwidth. By pressing the "Start" button the client will try to connect to the server at **127.0.0.1:5000**. After a successfull connection the client will retrieve from the client the files that corespond to the given format. The user then selects the preferable file which will couse a card at the left of the screen to be opened. By pressing "START STREAMING" the client will start streaming the specified file with the specified resolution protocol.
 If no protocol was provided, the app will choose the best fit based on bandwidth.
 ### Note
 GUI based on [Fruits Market](https://github.com/mahmoudhamwi/Fruits-Market).
